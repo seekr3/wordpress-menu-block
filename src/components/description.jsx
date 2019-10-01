@@ -6,15 +6,23 @@ class Textarea extends React.Component {
   }
   handleResize() {
     const node = ReactDOM.findDOMNode(this);
+    const { style, scrollHeight } = node;
 
-    node.style.height = 'inherit';
+    style.height = 'inherit';
     
-    const {borderBottomWidth, paddingBottom, width} = getComputedStyle(node);
+    const {
+      borderBottomWidth,
+      paddingBottom,
+    } = getComputedStyle(node);
     
-    node.style.height = node.scrollHeight
-    + parseInt(borderBottomWidth, 0)
-    + parseInt(paddingBottom, 0)
-    + 'px';
+    const height = (scrollHeight || 100)
+      + parseInt(borderBottomWidth, 0)
+      + parseInt(paddingBottom, 0)
+      + 'px';
+    
+    console.log(height);
+
+    style.height = height;
   }
   componentDidMount() {
     addEventListener('resize', () => this.handleResize());
